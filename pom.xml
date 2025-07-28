@@ -42,7 +42,7 @@
 <!--          <sources>-->
 <!--            <source>src/main/resources/user.xsd</source>-->
 <!--          </sources>-->
-          <outputDirectory>src/main/java</outputDirectory>
+          <outputDirectory>src/main/java/org/example/model</outputDirectory>
 <!--          <clearOutputDir>false</clearOutputDir>-->
         </configuration>
       </plugin>
