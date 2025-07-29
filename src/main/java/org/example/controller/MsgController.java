@@ -4,6 +4,7 @@ import jakarta.xml.bind.*;
 import org.example.model.com.fundtech.scl.commontypes.FndtMsgHeaderType;
 import org.example.model.com.fundtech.scl.commontypes.FndtMsgType;
 import org.example.model.com.fundtech.scl.commontypes.PmntType;
+import org.example.model.iso.std.iso._20022.tech.xsd.pacs_008_001.FIToFICustomerCreditTransferV08;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.namespace.QName;
@@ -28,7 +29,7 @@ public class MsgController {
         System.out.println("received message: \n" + str);
 
 //        JAXBContext jaxbContext = JAXBContext.newInstance(FndtMsgType.class);
-        JAXBContext jaxbContext = JAXBContext.newInstance("org.example.model.com.fundtech.scl.commontypes");
+        JAXBContext jaxbContext = JAXBContext.newInstance("org.example.model.iso.std.iso._20022.tech.xsd.pacs_008_001:org.example.model.com.fundtech.scl.commontypes");
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         StringReader stringReader = new StringReader(str);
 
@@ -41,18 +42,24 @@ public class MsgController {
 
         Marshaller marshaller = jaxbContext.createMarshaller();
 //        marshaller.marshal(jaxbElement, System.out);
-
 //        marshaller.marshal(new JAXBElement<FndtMsgHeaderType>(
 //                new QName("uri","local"),
 //                FndtMsgHeaderType.class,
 //                ((FndtMsgType) jaxbElement.getValue()).getHeader()
 //        ), System.out);
 
-        marshaller.marshal(new JAXBElement<PmntType>(
+//        marshaller.marshal(new JAXBElement<PmntType>(
+//                new QName("uri","local"),
+//                        PmntType.class,
+//                        ((FndtMsgType) jaxbElement.getValue()).getMsg().getPmnt()
+//                ),System.out);
+
+
+        marshaller.marshal(new JAXBElement<FIToFICustomerCreditTransferV08>(
                 new QName("uri","local"),
-                        PmntType.class,
-                        ((FndtMsgType) jaxbElement.getValue()).getMsg().getPmnt()
-                ),System.out);
+                FIToFICustomerCreditTransferV08.class,
+                ((FIToFICustomerCreditTransferV08) ((FndtMsgType) jaxbElement.getValue()).getMsg().getPmnt().getAny())
+        ),System.out);
 
     }
 }
