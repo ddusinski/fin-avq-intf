@@ -1,10 +1,8 @@
 package org.example.controller;
 
 import jakarta.xml.bind.*;
-import org.example.model.com.fundtech.scl.commontypes.FndtMsgHeaderType;
 import org.example.model.com.fundtech.scl.commontypes.FndtMsgType;
-import org.example.model.com.fundtech.scl.commontypes.PmntType;
-import org.example.model.iso.std.iso._20022.tech.xsd.pacs_008_001.FIToFICustomerCreditTransferV08;
+import org.example.model.iso.std.iso._20022.tech.xsd.pacs_008_001.Document;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.namespace.QName;
@@ -26,39 +24,35 @@ public class MsgController {
 
     @PostMapping("/msg")
     public void getMessage2(@RequestBody String str) throws JAXBException {
-        System.out.println("received message: \n" + str);
+        System.out.println("Incoming message: \n" + str);
 
-//        JAXBContext jaxbContext = JAXBContext.newInstance(FndtMsgType.class);
         JAXBContext jaxbContext = JAXBContext.newInstance("org.example.model.iso.std.iso._20022.tech.xsd.pacs_008_001:org.example.model.com.fundtech.scl.commontypes");
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         StringReader stringReader = new StringReader(str);
 
-        JAXBElement jaxbElement = (JAXBElement) unmarshaller.unmarshal(stringReader);
+        //<FndtMsg>
+        JAXBElement<FndtMsgType> jaxbElement = (JAXBElement<FndtMsgType>) unmarshaller.unmarshal(stringReader);
+        FndtMsgType fndtMsgType = jaxbElement.getValue();
 
+        //<Document>
+        JAXBElement<Document> anyJAXBElement= (JAXBElement<Document>) fndtMsgType.getMsg().getPmnt().getAny();
+        Document inPacs008 = anyJAXBElement.getValue();
 
-        FndtMsgType fndtMsgType = (FndtMsgType)jaxbElement.getValue();
-
-        System.out.println(fndtMsgType.getMsg().getPmnt().getAny());
+        Document outPacs008 = new Document();
+        outPacs008.setFIToFICstmrCdtTrf(inPacs008.getFIToFICstmrCdtTrf());
 
         Marshaller marshaller = jaxbContext.createMarshaller();
-//        marshaller.marshal(jaxbElement, System.out);
-//        marshaller.marshal(new JAXBElement<FndtMsgHeaderType>(
-//                new QName("uri","local"),
-//                FndtMsgHeaderType.class,
-//                ((FndtMsgType) jaxbElement.getValue()).getHeader()
-//        ), System.out);
-
 //        marshaller.marshal(new JAXBElement<PmntType>(
 //                new QName("uri","local"),
 //                        PmntType.class,
 //                        ((FndtMsgType) jaxbElement.getValue()).getMsg().getPmnt()
 //                ),System.out);
 
-
-        marshaller.marshal(new JAXBElement<FIToFICustomerCreditTransferV08>(
+        System.out.println("Outgoing message:");
+        marshaller.marshal(new JAXBElement<Document>(
                 new QName("uri","local"),
-                FIToFICustomerCreditTransferV08.class,
-                ((FIToFICustomerCreditTransferV08) ((FndtMsgType) jaxbElement.getValue()).getMsg().getPmnt().getAny())
+                Document.class,
+                outPacs008
         ),System.out);
 
     }
