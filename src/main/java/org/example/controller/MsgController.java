@@ -1,8 +1,8 @@
 package org.example.controller;
 
 import jakarta.xml.bind.*;
-import org.example.model.com.fundtech.scl.commontypes.FndtMsgType;
-import org.example.model.iso.std.iso._20022.tech.xsd.pacs_008_001.Document;
+import org.example.model.fin.com.fundtech.scl.commontypes.FndtMsgType;
+import org.example.model.avq.pacs.iso.std.iso._20022.tech.xsd.pacs_008_001.Document;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.namespace.QName;
@@ -26,7 +26,7 @@ public class MsgController {
     public void getMessage2(@RequestBody String str) throws JAXBException {
         System.out.println("Incoming message: \n" + str);
 
-        JAXBContext jaxbContext = JAXBContext.newInstance("org.example.model.iso.std.iso._20022.tech.xsd.pacs_008_001:org.example.model.com.fundtech.scl.commontypes");
+        JAXBContext jaxbContext = JAXBContext.newInstance("org.example.model.avq.pacs.iso.std.iso._20022.tech.xsd.pacs_008_001:org.example.model.fin.com.fundtech.scl.commontypes");
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         StringReader stringReader = new StringReader(str);
 
