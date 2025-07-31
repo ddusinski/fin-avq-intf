@@ -29,22 +29,43 @@
         <version>3.1.0</version>
         <executions>
           <execution>
-            <id>xjc</id>
+            <id>xjc-schema-fin</id>
             <goals>
               <goal>xjc</goal>
             </goals>
+            <configuration>
+              <sources>
+                <source>src/main/xsd/fin</source>
+              </sources>
+              <packageName>org.example.fin</packageName>
+              <outputDirectory>src/main/java/org/example/model</outputDirectory>
+            </configuration>
           </execution>
+          <!--          <execution>-->
+          <!--            <id>xjc-schema-avq</id>-->
+          <!--            <goals>-->
+          <!--              <goal>xjc</goal>-->
+          <!--            </goals>-->
+          <!--            <configuration>-->
+          <!--              <sources>-->
+          <!--                <source>src/main/xsd/fin</source>-->
+          <!--              </sources>-->
+          <!--              <packageName>org.example.model.avq</packageName>-->
+          <!--&lt;!&ndash;              <outputDirectory>src/main/java/org/example/model</outputDirectory>&ndash;&gt;-->
+          <!--            </configuration>-->
+          <!--          </execution>-->
         </executions>
-        <configuration>
-<!--          <xjbSources>-->
-<!--            <xjbSource>src/main/resources/global.xjb</xjbSource>-->
-<!--          </xjbSources>-->
-<!--          <sources>-->
-<!--            <source>src/main/resources/user.xsd</source>-->
-<!--          </sources>-->
-          <outputDirectory>src/main/java/org/example/model</outputDirectory>
-<!--          <clearOutputDir>false</clearOutputDir>-->
-        </configuration>
+<!--        <configuration>-->
+          <!--          <xjbSources>-->
+          <!--            <xjbSource>src/main/resources/global.xjb</xjbSource>-->
+          <!--          </xjbSources>-->
+          <!--          <sources>-->
+          <!--            <source>src/main/resources/user.xsd</source>-->
+          <!--          </sources>-->
+          <!--          <outputDirectory>src/main/java/org/example/model</outputDirectory>-->
+          <!--          <packageName>org.example.model</packageName>-->
+          <!--          <clearOutputDir>false</clearOutputDir>-->
+<!--        </configuration>-->
       </plugin>
     </plugins>
   </build>
