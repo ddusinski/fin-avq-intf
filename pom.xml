@@ -38,7 +38,7 @@
                                 <source>src/main/xsd/fin</source>
                             </sources>
                             <packageName>org.example.model.fin.com.fundtech.scl.commontypes</packageName>
-                            <outputDirectory>src/main/java/org/example/model/fin</outputDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -51,7 +51,7 @@
                                 <source>src/main/xsd/avq</source>
                             </sources>
                             <packageName>org.example.model.avq.pacs.iso.std.iso._20022.tech.xsd.pacs_008_001</packageName>
-                            <outputDirectory>src/main/java/org/example/model/avq/pacs</outputDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -64,21 +64,13 @@
                                 <source>src/main/xsd/avq_hdr</source>
                             </sources>
                             <packageName>org.example.model.avq.hdr</packageName>
-                            <outputDirectory>src/main/java/org/example/model/avq/hdr</outputDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
-<!--                        <configuration>-->
-                <!--          <xjbSources>-->
-                <!--            <xjbSource>src/main/resources/global.xjb</xjbSource>-->
-                <!--          </xjbSources>-->
-                <!--          <sources>-->
-                <!--            <source>src/main/resources/user.xsd</source>-->
-                <!--          </sources>-->
-<!--                          <outputDirectory>src/main/java/org/example/model</outputDirectory>-->
-                <!--          <packageName>org.example.model</packageName>-->
-                <!--          <clearOutputDir>false</clearOutputDir>-->
-<!--                        </configuration>-->
+                        <configuration>
+                          <clearOutputDir>false</clearOutputDir>
+                        </configuration>
             </plugin>
         </plugins>
     </build>
